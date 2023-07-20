@@ -1,1 +1,54 @@
-<h1>My Website</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+
+        img {
+            animation: App-logo-spin infinite 1s linear;
+            pointer-events: none;
+        }
+
+        @keyframes App-logo-spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    
+        a{
+            color:white;
+            text-decoration: none;
+            font-size:40px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <a href="https://google.com" target="_self">GOOGLE</a>
+    </div>
+    <div>
+        <img src="logo.svg" width="400"/></a>
+    </div>
+</body>
+</html>
