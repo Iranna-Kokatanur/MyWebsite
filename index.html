@@ -5,27 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iranna's Website</title>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        body{
-            background-color: black;
+        body {
+            background: radial-gradient(circle at 20% 20%, #232526, #0f2027 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             flex-direction: column;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
         }
-
-
+        .card {
+            background-color: rgba(26, 26, 29, 0.92);
+            border-radius: 22px;
+            box-shadow: 0 4px 36px 0 rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.08);
+            padding: 40px 32px 32px 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 350px;
+        }
         img {
-            animation: App-logo-spin infinite 1s linear;
+            animation: App-logo-spin infinite 1.8s linear;
             pointer-events: none;
+            margin-bottom: 18px;
+            border-radius: 18px;
+            border: 2px solid #0099ff;
+            box-shadow: 0 2px 18px #0077ff55;
+            background: #222;
         }
-
         @keyframes App-logo-spin {
             from {
                 transform: rotate(0deg);
@@ -34,21 +46,95 @@
                 transform: rotate(360deg);
             }
         }
-    
-        a{
-            color:white;
+        a {
+            color: #0099ff;
             text-decoration: none;
-            font-size:40px;
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 22px;
+            transition: color 0.2s;
+        }
+        a:hover {
+            color: #00ffb3;
+            text-shadow: 0 0 6px #00ffe7, 0 0 10px #0088ff77;
+        }
+        .timings {
+            margin-top: 26px;
+            color: #e6e6e6;
+            font-size: 1.45rem;
+            font-family: 'Consolas', 'monospace';
+            text-align: center;
+            width: 100%;
+        }
+        .timings-table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            color: #fff;
+            background: rgba(0,0,0,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 8px #0099ff22;
+        }
+        .timings-table th, .timings-table td {
+            border: 1px solid #2c4167;
+            padding: 12px 28px;
+            font-size: 1.13rem;
+        }
+        .timings-table th {
+            background: #0099ff22;
             font-weight: 700;
         }
+        .timings-table tr:nth-child(even) td {
+            background: #222c38bb;
+        }
+        .timings-table tr:hover td {
+            background: #0077ff44;
+            color: #fff;
+            transition: background 0.2s;
+        }
     </style>
+    <script>
+        function updateTimes() {
+            // Get the current UTC time properly
+            const nowUTC = new Date();
+            // Calculate milliseconds for true UTC time
+            const utcMillis = nowUTC.getTime() + (nowUTC.getTimezoneOffset() * 60000);
+
+            const zones = [
+                { name: "UTC", offset: 0 },
+                { name: "EST (Eastern)", offset: -4 * 60 },
+                { name: "CST (Central)", offset: -5 * 60 },
+                { name: "MST (Mountain)", offset: -6 * 60 },
+                { name: "PST (Pacific)", offset: -7 * 60 },
+                { name: "IST (India)", offset: 5.5 * 60 }
+            ];
+
+            let html = "<table class='timings-table'><tr><th>Zone</th><th>Time</th></tr>";
+            zones.forEach(zone => {
+                // Calculate local time using UTC as base
+                let local = new Date(utcMillis + zone.offset * 60000);
+                // Use hour12: true for am/pm
+                let timeStr = local.toLocaleString("en-US", { hour12: true });
+                html += `<tr><td>${zone.name}</td><td>${timeStr}</td></tr>`;
+            });
+            html += "</table>";
+
+            document.getElementById("timings").innerHTML = html;
+        }
+        window.onload = function() {
+            updateTimes();
+            setInterval(updateTimes, 1000);
+        };
+    </script>
 </head>
 <body>
-    <div>
+    <div class="card">
         <a href="https://google.com" target="_self">GOOGLE</a>
-    </div>
-    <div>
-        <img src="logo.svg" width="400"/></a>
+        <img src="logo.svg" width="400"/>
+        <div class="timings" id="timings">
+            <!-- Time zones will be injected here -->
+        </div>
     </div>
 </body>
 </html>
